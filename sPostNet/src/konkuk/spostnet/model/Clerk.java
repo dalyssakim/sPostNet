@@ -65,4 +65,10 @@ public class Clerk extends Role{
 	public int generateInvoiceNumber(){
 		return 0;
 	}
+
+	@Override
+	public ServiceIF getProxy() {
+		// TODO Auto-generated method stub
+		return super.proxy;
+	}
 }

@@ -10,15 +10,27 @@ public abstract class Mail {
 	Client receiver;
 	PaymentSpec paymentSpec;
 	String status;
+	int centerId;
 	
-	public void specifyMail(Client sender, Client receiver, PaymentSpec paymentSpec, int invoiceNumber, String status){
+	public void specifyMail(Client sender, Client receiver, PaymentSpec paymentSpec, int invoiceNumber, String status, int centerId){
 		this.sender = sender;
 		this.receiver = receiver;
 		this.paymentSpec = paymentSpec;
 		this.invoiceNumber = invoiceNumber;
 		this.status = status;
+		this.centerId = centerId;
 	}
 
+	
+	public int getCenterId() {
+		return centerId;
+	}
+
+	public void setCenterId(int centerId) {
+		this.centerId = centerId;
+	}
+
+	
 	public int getInvoiceNumber() {
 		return invoiceNumber;
 	}

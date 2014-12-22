@@ -1,10 +1,13 @@
 package konkuk.spostnet.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import konkuk.spostnet.abstractobject.Mail;
 import konkuk.spostnet.abstractobject.Role;
 import konkuk.spostnet.core.Center;
+import konkuk.spostnet.core.sPostNet;
+import konkuk.spostnet.proxy.ServiceIF;
 import konkuk.spostnet.proxy.ServiceProxy;
 
 public class WarehouseManager extends Role{
@@ -39,9 +42,24 @@ public class WarehouseManager extends Role{
 		}
 		
 		if(command.equals("AllocateDriver")){
+			int invoice = (Integer)objects.get(0);
+			String userId =(String)objects.get(1);
 			
+			for(int i = 0; i < Center.getCenter().getLcontainer().size(); i++){
+				Mail temp = (Mail)Center.getCenter().getLcontainer().get(i);
+				if(temp.getInvoiceNumber() == invoice){
+					System.out.println("[Allocate]"+invoice);
+					allocateContainer((Container)Center.getCenter().getLcontainer().get(i), userId);
+					System.out.println(((Container)Center.getCenter().getLcontainer().get(i)).getStatus());
+
+					Center.getCenter().setChanged();
+					Center.getCenter().notifyObservers();
+					return ;
+				}
+			}
 		}
 	}
+
 
 	@Override
 	public void proxy() {
@@ -60,11 +78,13 @@ public class WarehouseManager extends Role{
 			 */
 			for(int i = 0; i < Center.getCenter().getLcontainer().size(); i++){	// 1 lcontainer := getLcontainer() , 2 size:=size()
 				System.out.println(((Container) Center.getCenter().getLcontainer().get(i)).getCenter().getCity()); // 3 [*i=0...size] temp:=get(i), 4 center:=getCenter(), 5 city:=getCity();
-				if(((Container) Center.getCenter().getLcontainer().get(i)).getCenter().getCity().equals(mail.getReceiver().getAddress())){
+				if(((Container) Center.getCenter().getLcontainer().get(i)).getCenter().getCity().equals(mail.getReceiver().getCity())){
 			((Container) Center.getCenter().getLcontainer().get(i)).addSingleItem(mail); // 6 [city=mail.receiver.getAddress] addSingleItem(mail);
 			}
 			}
-		
+			List list = new ArrayList();
+			list.add(mail);
+			this.proxy.updateModify("Classify", list);
 			/*
 			 * Below is for Debugging
 			 */
@@ -86,11 +106,44 @@ public class WarehouseManager extends Role{
 			
 	}
 	
-	public void allocateContainer(){
+
+	
+	public void allocateContainer(Container container, String userId){
+		//change container_state, notify driver.
+		List<Employee> Lemployee = sPostNet.getSPostNet().getActiveEmployee();
+		List<Object> Lcontainer = Center.getCenter().getLcontainer();
 		
+		container.setStatus("Allocated");
+		
+		if(container.getItems() != null){
+			List<Mail> Litem = container.getItems();
+			for(int i=0 ; i<Litem.size() ;i++){
+				Litem.get(i).setStatus("Allocated");
+			}
+		}
+
+		for(int i=0; i<Lemployee.size() ; i++){
+			if(Lemployee.get(i).getUserId().equals(userId)){
+				System.out.println("UserId!!!"+userId);	//notify
+				Lemployee.get(i).setStatus("Deliverying");
+				List emplist = new ArrayList();
+				emplist.add(Lemployee.get(i));
+				proxy.updateModify("UpdateStatus", emplist);
+				if(Lemployee.get(i).getRole() != null)
+					((Driver)(Lemployee.get(i).getRole())).addContainer(container);
+			}
+		
+		
+		}
 	}
 	/*
 	 * city == lcontainer.externalcenterinfo.city
 	 * addSingleItem to the container
 	 */
+
+	@Override
+	public ServiceIF getProxy() {
+		// TODO Auto-generated method stub
+		return super.proxy;
+	}
 }

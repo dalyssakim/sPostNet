@@ -49,7 +49,9 @@ public class ClassificationView implements View, java.util.Observer {
 	public void showClassificationView() {
 
 		mails = (List) Center.getCenter().getLmail();	// 3.1.1 mails := getLmail()
-
+		List elist = new ArrayList();
+		elist.add(employee);
+		mails = employee.getRole().getProxy().updateSelect("LoadMail", elist);
 		for (int i = 0; i < mails.size(); i++) {		// 3.1.2 [*i=0...mail.size] mail:=get(i)
 			if (mails.get(i).getStatus().equals("Registered")) {
 				listModel.addElement(mails.get(i).getInvoiceNumber());	// 3.1.3 [mail.status==Registered] addElement(mail.invoiceNumber);
@@ -59,7 +61,7 @@ public class ClassificationView implements View, java.util.Observer {
 		if (item.size() == 0) {
 			System.out.println("No Item in the list");
 		}
-
+		frame.setTitle("[WM - Classification] " + employee.getName());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -108,6 +110,19 @@ public class ClassificationView implements View, java.util.Observer {
 
 			}
 
+		});
+		
+		JButton btnCompleted = new JButton("Completed");
+		btnCompleted.setBounds(140, 210, 120, 23);
+		panel.add(btnCompleted);
+		btnCompleted.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				/*
+				 * Classification Completed 
+				 * Set Container Status to Ready or whatever
+				 */
+				frame.dispose();
+			}
 		});
 
 	}

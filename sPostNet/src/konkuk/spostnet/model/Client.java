@@ -16,6 +16,7 @@ public class Client {
 		 this.name = name;
 		 this.address = address;
 		 this.city = city;
+		 this.nation = nation;
 		 this.phone = phone;
 	 }
 	 

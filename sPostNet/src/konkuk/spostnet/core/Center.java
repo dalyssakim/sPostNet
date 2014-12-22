@@ -38,8 +38,8 @@ public class Center extends java.util.Observable{
 		Container c0 = new Container(ourCenter);
 		Container c1 = new Container(cifoB);
 		Container c2 = new Container(cifoC);
-		c1.specifyMail(ourCenter, cifoB, null, new InvoiceGenerator().generateInvoice(), "Idle");
-		c2.specifyMail(ourCenter, cifoC, null, new InvoiceGenerator().generateInvoice(), "Idle");
+		c1.specifyMail(ourCenter, cifoB, null, new InvoiceGenerator().generateInvoice(), "Idle", this.centerId);
+		c2.specifyMail(ourCenter, cifoC, null, new InvoiceGenerator().generateInvoice(), "Idle", this.centerId);
 		
 		
 		lcontainer.add(c0);
@@ -125,6 +125,9 @@ public class Center extends java.util.Observable{
 		}
 		
 		v.viewInvoker();								//10 viewInvoker()
+		this.setChanged();
+		this.notifyObservers();
+		
 		
 		return true;
 	}

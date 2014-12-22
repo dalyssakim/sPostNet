@@ -19,135 +19,175 @@ import konkuk.spostnet.core.Center;
 import konkuk.spostnet.model.Client;
 import konkuk.spostnet.model.Employee;
 
-public class TransactionView extends JFrame implements View {
+public class TransactionView implements View {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String[] priority = { "High", "Low" };
 	private JPanel contentPane;
+	private JFrame frame;
 	private JTextField senderNameTextField;
+	private JTextField senderNationTextField;
+	private JTextField senderCityTextField;
+	private JTextField senderAddressTextField;
+	private JTextField senderPhoneNumTextField;
+	private JTextField receiverNameTextField;
+	private JTextField receiverNationTextField;
+	private JTextField receiverCityTextField;
+	private JTextField receiverAddressTextField;
+	private JTextField receiverPhoneNumTextField;
+	private JTextField weightTextField;
+/*	private JTextField senderNameTextField;
 	private JTextField senderAddressTextField;
 	private JTextField senderPhoneNumTextField;
 	private JTextField receiverNameTextField;
 	private JTextField receiverAddressTextField;
 	private JTextField receiverPhoneNumTextField;
-	private JTextField weightTextField;
+	private JTextField weightTextField;*/
 	private Employee employee;
 
-	/**
-	 * Launch the application.
-	 */
+	
+	public TransactionView(){
+		frame = new JFrame();
+		frame.setVisible(false);
+	}
+	public void showTransactionView() {
 
-	/**
-	 * Create the frame.
-	 */
-	public TransactionView() {
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 493, 301);
+		frame.setBounds(100, 100, 700, 378);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
-
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
-
-		JLabel lblItemId = new JLabel("Sender Name");
-		lblItemId.setBounds(12, 31, 86, 15);
-		panel.add(lblItemId);
-
-		JLabel lblNewLabel_1 = new JLabel("Sender Address");
-		lblNewLabel_1.setBounds(12, 59, 107, 15);
-		panel.add(lblNewLabel_1);
-
-		JLabel lblNewLabel = new JLabel("Sender PhoneNum");
-		lblNewLabel.setBounds(12, 89, 107, 15);
-		panel.add(lblNewLabel);
-
-		JLabel lblWeight = new JLabel("Weight");
-		lblWeight.setBounds(278, 130, 57, 15);
-		panel.add(lblWeight);
-
-		JLabel lblPriority = new JLabel("Priority");
-		lblPriority.setBounds(278, 162, 57, 15);
-		panel.add(lblPriority);
-
-		JLabel lblNewLabel_2 = new JLabel("Receiver Name");
-		lblNewLabel_2.setBounds(12, 130, 100, 15);
-		panel.add(lblNewLabel_2);
-
-		JLabel lblNewLabel_3 = new JLabel("Reciever Address");
-		lblNewLabel_3.setBounds(12, 162, 107, 15);
-		panel.add(lblNewLabel_3);
-
-		JLabel lblNewLabel_4 = new JLabel("Receiver PhoneNum");
-		lblNewLabel_4.setBounds(12, 193, 116, 15);
-		panel.add(lblNewLabel_4);
-
-		// senderName
+		frame.setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Sender Name");
+		lblNewLabel.setBounds(29, 32, 116, 15);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Nation");
+		lblNewLabel_1.setBounds(29, 64, 57, 15);
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Sender PhoneNum");
+		lblNewLabel_2.setBounds(29, 96, 116, 15);
+		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("Receiver Name");
+		lblNewLabel_3.setBounds(29, 158, 116, 15);
+		contentPane.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("Nation");
+		lblNewLabel_4.setBounds(29, 186, 57, 15);
+		contentPane.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_5 = new JLabel("Receiver PhoneNum");
+		lblNewLabel_5.setBounds(29, 214, 116, 15);
+		contentPane.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_6 = new JLabel("City");
+		lblNewLabel_6.setBounds(287, 64, 57, 15);
+		contentPane.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_7 = new JLabel("Address");
+		lblNewLabel_7.setBounds(455, 64, 57, 15);
+		contentPane.add(lblNewLabel_7);
+		
+		JLabel lblNewLabel_8 = new JLabel("City");
+		lblNewLabel_8.setBounds(287, 186, 57, 15);
+		contentPane.add(lblNewLabel_8);
+		
+		JLabel lblNewLabel_9 = new JLabel("Address");
+		lblNewLabel_9.setBounds(455, 186, 57, 15);
+		contentPane.add(lblNewLabel_9);
+		
+		JLabel lblNewLabel_10 = new JLabel("Weight");
+		lblNewLabel_10.setBounds(29, 265, 57, 15);
+		contentPane.add(lblNewLabel_10);
+		
+		JLabel lblNewLabel_11 = new JLabel("Priority");
+		lblNewLabel_11.setBounds(287, 265, 57, 15);
+		contentPane.add(lblNewLabel_11);
+		
 		senderNameTextField = new JTextField();
-		senderNameTextField.setBounds(138, 28, 116, 21);
-		panel.add(senderNameTextField);
+		senderNameTextField.setBounds(154, 29, 116, 21);
+		contentPane.add(senderNameTextField);
 		senderNameTextField.setColumns(10);
-
-		// senderAddress
+		
+		senderNationTextField = new JTextField();
+		senderNationTextField.setBounds(154, 61, 116, 21);
+		contentPane.add(senderNationTextField);
+		senderNationTextField.setColumns(10);
+		
+		senderCityTextField = new JTextField();
+		senderCityTextField.setBounds(323, 61, 116, 21);
+		contentPane.add(senderCityTextField);
+		senderCityTextField.setColumns(10);
+		
 		senderAddressTextField = new JTextField();
-		senderAddressTextField.setBounds(138, 56, 116, 21);
-		panel.add(senderAddressTextField);
+		senderAddressTextField.setBounds(511, 61, 116, 21);
+		contentPane.add(senderAddressTextField);
 		senderAddressTextField.setColumns(10);
-
-		// sender PhoneNum
+		
 		senderPhoneNumTextField = new JTextField();
-		senderPhoneNumTextField.setBounds(138, 86, 116, 21);
-		panel.add(senderPhoneNumTextField);
+		senderPhoneNumTextField.setBounds(154, 93, 116, 21);
+		contentPane.add(senderPhoneNumTextField);
 		senderPhoneNumTextField.setColumns(10);
-
-		// Receiver Name
+		
 		receiverNameTextField = new JTextField();
-		receiverNameTextField.setBounds(138, 127, 116, 21);
-		panel.add(receiverNameTextField);
+		receiverNameTextField.setBounds(157, 155, 116, 21);
+		contentPane.add(receiverNameTextField);
 		receiverNameTextField.setColumns(10);
-
-		// Receiver Address
+		
+		receiverNationTextField = new JTextField();
+		receiverNationTextField.setBounds(157, 183, 116, 21);
+		contentPane.add(receiverNationTextField);
+		receiverNationTextField.setColumns(10);
+		
+		receiverCityTextField = new JTextField();
+		receiverCityTextField.setBounds(323, 183, 116, 21);
+		contentPane.add(receiverCityTextField);
+		receiverCityTextField.setColumns(10);
+		
 		receiverAddressTextField = new JTextField();
-		receiverAddressTextField.setBounds(138, 159, 116, 21);
-		panel.add(receiverAddressTextField);
+		receiverAddressTextField.setBounds(511, 183, 116, 21);
+		contentPane.add(receiverAddressTextField);
 		receiverAddressTextField.setColumns(10);
-
-		// Receiver PhoneNum
+		
 		receiverPhoneNumTextField = new JTextField();
-		receiverPhoneNumTextField.setBounds(138, 190, 116, 21);
-		panel.add(receiverPhoneNumTextField);
+		receiverPhoneNumTextField.setBounds(157, 211, 116, 21);
+		contentPane.add(receiverPhoneNumTextField);
 		receiverPhoneNumTextField.setColumns(10);
-
-		// Weight
+		
 		weightTextField = new JTextField();
-		weightTextField.setBounds(328, 127, 100, 21);
-		panel.add(weightTextField);
+		weightTextField.setBounds(157, 262, 116, 21);
+		contentPane.add(weightTextField);
 		weightTextField.setColumns(10);
-
-		final JComboBox comboBox_1 = new JComboBox(priority);
-		comboBox_1.setBounds(328, 159, 68, 21);
-		panel.add(comboBox_1);
+		
+		final JComboBox comboBox = new JComboBox(priority);
+		comboBox.setBounds(342, 263, 91, 18);
+		contentPane.add(comboBox);
+	
 
 		JButton btnRegister = new JButton("Register");
-		btnRegister.setBounds(257, 220, 97, 23);
-		panel.add(btnRegister);
-		btnRegister.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { 
-				/*
+		btnRegister.setBounds(386, 307, 97, 23);
+		contentPane.add(btnRegister);
+		btnRegister.addActionListener(new ActionListener (){
+			public void actionPerformed(ActionEvent e){
+						/*
 				 * Register(senderName, senderNation, senderCity, senderAddress, senderPhone
 				 * 			receiverName, receiverNation, receiverCity, receiverAddress, receiverPhone,
 				 * 			weight, priority)
 				 */
 				// Name, Nation, City, Address, Phone
-				Client sender = new Client(senderNameTextField.getText(), "Our Universe", "Earth",
+				Client sender = new Client(senderNameTextField.getText(), senderNationTextField.getText()+"", senderCityTextField.getText()+"",
 						senderAddressTextField.getText() , senderPhoneNumTextField.getText()); 		//  1.create(senderName, ..., senderPhone)
-				Client receiver = new Client(receiverNameTextField.getText(), "Our Universe", "Mars",
+				Client receiver = new Client(receiverNameTextField.getText(), receiverNationTextField.getText()+"", receiverCityTextField.getText()+"",
 						receiverAddressTextField.getText(), receiverPhoneNumTextField.getText());	// 	2.create(receiverName, ..., receiverPhone)
 				Double weight = Double.parseDouble(weightTextField.getText()); 			
 				int priority ;
-				if(((String)comboBox_1.getSelectedItem()).equals("High")){
+				if(((String)comboBox.getSelectedItem()).equals("High")){
 					priority = 0;
 				}else{
 					priority = 1;
@@ -160,19 +200,21 @@ public class TransactionView extends JFrame implements View {
 				
 				employee.getRole().doTask("ADDITEM", list);				//8 role:=getRole(), 9 doTask("ADDITEM", list)
 
-				dispose();
-
+				frame.dispose();
 			}
 		});
-
+		
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(357, 220, 97, 23);
-		panel.add(btnCancel);
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
+		btnCancel.setBounds(514, 307, 97, 23);
+		contentPane.add(btnCancel);
+		btnCancel.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				frame.dispose();
 			}
 		});
+	
+
+		
 
 	}
 
@@ -186,6 +228,7 @@ public class TransactionView extends JFrame implements View {
 	@Override
 	public void viewInvoker() {
 		// TODO Auto-generated method stub
-
+		showTransactionView();
+		frame.setVisible(true);
 	}
 }

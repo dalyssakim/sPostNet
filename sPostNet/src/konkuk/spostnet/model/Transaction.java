@@ -5,6 +5,7 @@ import java.util.List;
 
 import konkuk.spostnet.abstractobject.Mail;
 import konkuk.spostnet.concretefactory.MailFactory;
+import konkuk.spostnet.core.Center;
 import konkuk.spostnet.proxy.ServiceIF;
 import konkuk.spostnet.proxy.ServiceProxy;
 
@@ -22,7 +23,7 @@ public class Transaction {
 			
 			mail = MailFactory.createMail("konkuk.spostnet.model.Item");
 			PaymentSpec paymentSpec = generatePaymentSpec(sender, receiver, priority, weight);
-			mail.specifyMail(sender, receiver, paymentSpec, invoiceNumber, "Registered");
+			mail.specifyMail(sender, receiver, paymentSpec, invoiceNumber, "Registered", Center.getCenter().getCenterId());
 			System.out.println("AddItem!!! : "+sender.getName());
 			
 		

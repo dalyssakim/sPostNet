@@ -45,6 +45,7 @@ public class ClerkView implements View{
 	
 	public void showClerkView() {
 		// public ClerkView(Employee emp) {
+		frame.setTitle("[Clerk]"+employee.getName());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(100, 100, 355, 262);
 		contentPane = new JPanel();
@@ -80,7 +81,7 @@ public class ClerkView implements View{
 				 * */
 				TransactionView frame = new TransactionView();
 				frame.setModel(employee);
-				frame.setVisible(true);
+				frame.viewInvoker();
 		
 			
 			}

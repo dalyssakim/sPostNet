@@ -14,71 +14,52 @@ import javax.swing.border.EmptyBorder;
 
 import konkuk.spostnet.model.Employee;
 
-
 public class DriverView extends JFrame implements View {
 
 	private JPanel contentPane;
-	public DeliveryView deliveryview = null;
+	private JFrame frame;
 	private Employee employee = null;
-	
-	/**
-	 * Launch the application.
-	 */
-	public void viewInvoker(){
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					DriverView frame = new DriverView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-	public void setEmployee(Employee employee){
-		this.employee = employee;
+
+	public DriverView() {
+		frame = new JFrame();
+		frame.setVisible(false);
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	public DriverView() {
-		//	super("Clerk"+employee.getName());	
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 355, 262);
+	public void showDriverView() {
+		frame.setVisible(true);
+		frame.setTitle("[Driver] " + employee.getName());
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setBounds(100, 100, 355, 262);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		frame.setContentPane(contentPane);
 
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
-		
-		JLabel lblId = new JLabel("[Name	]");
+
+		JLabel lblId = new JLabel("[Name] " + employee.getName());
 		lblId.setBounds(24, 21, 117, 15);
 		panel.add(lblId);
-		
-		JLabel lblRole = new JLabel("[Role	]");
-		lblRole.setBounds(24, 46, 57, 15);
+
+		JLabel lblRole = new JLabel("[Role] " + employee.getRoleName());
+		lblRole.setBounds(24, 46, 100, 15);
 		panel.add(lblRole);
-		
-		JLabel lblCenterid = new JLabel("[CenterId	]");
+
+		JLabel lblCenterid = new JLabel("[CenterId] " + employee.getCenterId());
 		lblCenterid.setBounds(24, 71, 134, 15);
 		panel.add(lblCenterid);
-		
-		
+
 		JButton btnNewButton = new JButton("Start Delivery");
 		btnNewButton.setBounds(10, 165, 148, 23);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				deliveryview = new DeliveryView(employee);
-				deliveryview.setVisible(true);
+				DeliveryView dv = new DeliveryView(employee);
+				dv.setModel(employee);
+				dv.viewInvoker();
 			}
 		});
-		
 
 		panel.add(btnNewButton);
 
@@ -91,7 +72,7 @@ public class DriverView extends JFrame implements View {
 			}
 		});
 		
-		
+
 		JLabel lblmessage = new JLabel("[Message]");
 		lblmessage.setBounds(226, 21, 186, 15);
 		panel.add(lblmessage);
@@ -100,11 +81,13 @@ public class DriverView extends JFrame implements View {
 	@Override
 	public void setModel(Object model) {
 		// TODO Auto-generated method stub
-		
+		employee = (Employee) model;
+	}
+
+	@Override
+	public void viewInvoker() {
+		// TODO Auto-generated method stub-[
+		showDriverView();
 	}
 
 }
-
-
-
-

@@ -35,6 +35,7 @@ public class WarehouseManagerView implements View {
 	 */
 	public void showWarehouseManagerView() {
 		// public WarehouseManagerView(Employee emp) {
+		frame.setTitle("[WarehouseManager]"+employee.getName());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(100, 100, 355, 262);
 		contentPane = new JPanel();
@@ -73,6 +74,17 @@ public class WarehouseManagerView implements View {
 
 		panel.add(btnNewButton);
 
+		JButton btnNewButton_1 = new JButton("Allocate");
+		btnNewButton_1.setBounds(170, 116, 148, 23);
+		panel.add(btnNewButton_1);
+		btnNewButton_1.addActionListener(new ActionListener() { // allocate driver
+					public void actionPerformed(ActionEvent e) {
+						AllocationView alv = new AllocationView(); // 1 create
+						alv.setModel(employee); // 2 setModel(employee)
+						alv.viewInvoker(); // 3 viewInvoker()
+					}
+				});
+		
 		JButton btnSignout = new JButton("Sign-out");
 		btnSignout.setBounds(169, 164, 148, 23);
 		panel.add(btnSignout);

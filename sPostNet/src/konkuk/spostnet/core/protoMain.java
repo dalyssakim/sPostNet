@@ -13,8 +13,7 @@ public class protoMain {
 		
 
 		Center.getCenter().startCenter();
-		Center.getCenter().startCenter();
-		
+
 	/*	
 		Employee employee = new Employee(0, "dajung", "1234", 1);
 		View v = null  ;

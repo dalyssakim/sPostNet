@@ -29,6 +29,10 @@ public class Employee {
 	}
 	
 	
+	public Employee() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -78,6 +82,14 @@ public class Employee {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

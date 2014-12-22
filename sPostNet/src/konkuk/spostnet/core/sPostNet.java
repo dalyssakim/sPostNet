@@ -30,6 +30,54 @@ public class sPostNet implements ServiceIF{
 		
 	}
 	
+	public List<Center> getCenters() {
+		return centers;
+	}
+
+	public void setCenters(List<Center> centers) {
+		this.centers = centers;
+	}
+
+	public List<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(List<Employee> employees) {
+		this.employees = employees;
+	}
+
+	public List<Employee> getActiveEmployee() {
+		return activeEmployee;
+	}
+
+	public void setActiveEmployee(List<Employee> activeEmployee) {
+		this.activeEmployee = activeEmployee;
+	}
+
+	public ServiceIF getProxy() {
+		return proxy;
+	}
+
+	public void setProxy(ServiceIF proxy) {
+		this.proxy = proxy;
+	}
+
+	public static sPostNet getCoreCenter() {
+		return coreCenter;
+	}
+
+	public static void setCoreCenter(sPostNet coreCenter) {
+		sPostNet.coreCenter = coreCenter;
+	}
+
+	public static List<Mail> getMails() {
+		return mails;
+	}
+
+	public static void setMails(List<Mail> mails) {
+		sPostNet.mails = mails;
+	}
+
 	public static sPostNet getSPostNet(){
 		if(coreCenter == null) coreCenter = new sPostNet();
 		return coreCenter;

@@ -16,5 +16,6 @@ public abstract class Role {
 	
 	public abstract void doTask(String command, List<Object> objects);
 	public abstract void proxy();
+	public abstract ServiceIF getProxy();
 
 }
