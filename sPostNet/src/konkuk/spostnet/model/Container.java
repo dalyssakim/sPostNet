@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import konkuk.spostnet.abstractobject.Mail;
-import konkuk.spostnet.core.CenterInfo;
 
 public class Container extends Mail{
 	

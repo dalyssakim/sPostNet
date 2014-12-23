@@ -5,7 +5,6 @@ import java.util.List;
 
 import konkuk.spostnet.abstractobject.Role;
 import konkuk.spostnet.core.Center;
-import konkuk.spostnet.core.InvoiceGenerator;
 import konkuk.spostnet.proxy.ServiceIF;
 import konkuk.spostnet.proxy.ServiceProxy;
 

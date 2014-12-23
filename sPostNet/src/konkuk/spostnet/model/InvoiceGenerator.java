@@ -1,4 +1,4 @@
-package konkuk.spostnet.core;
+package konkuk.spostnet.model;
 
 public class InvoiceGenerator {
 

@@ -10,13 +10,13 @@ import org.json.JSONObject;
 import konkuk.spostnet.abstractobject.Mail;
 import konkuk.spostnet.concretefactory.MailFactory;
 import konkuk.spostnet.core.Center;
-import konkuk.spostnet.core.ExternalCenterInfo;
-import konkuk.spostnet.core.LocalCenterInfo;
 import konkuk.spostnet.core.sPostNet;
 import konkuk.spostnet.model.Client;
 import konkuk.spostnet.model.Container;
 import konkuk.spostnet.model.Employee;
+import konkuk.spostnet.model.ExternalCenterInfo;
 import konkuk.spostnet.model.Item;
+import konkuk.spostnet.model.LocalCenterInfo;
 
 public class ServiceProxy implements ServiceIF {
 

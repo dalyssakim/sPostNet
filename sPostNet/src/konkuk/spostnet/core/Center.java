@@ -5,6 +5,7 @@ import java.util.List;
 
 import konkuk.spostnet.abstractobject.Mail;
 import konkuk.spostnet.factory.ActivityToolkit;
+import konkuk.spostnet.model.CenterInfo;
 import konkuk.spostnet.model.Client;
 import konkuk.spostnet.model.Container;
 import konkuk.spostnet.model.Employee;

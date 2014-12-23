@@ -18,7 +18,8 @@ public class sPostNet implements ServiceIF{
 	private static List<Mail> mails = new ArrayList<Mail>();
 	
 	/*
-	 * add center on request
+	 * This class is only used for prototype.
+	 * Not used in client-server.
 	 */
 	private sPostNet(){
 		employees = new ArrayList();

@@ -1,6 +1,5 @@
-package konkuk.spostnet.core;
+package konkuk.spostnet.model;
 
-import konkuk.spostnet.model.Client;
 
 public abstract class CenterInfo extends Client {
 	
