@@ -15,4 +15,5 @@ public abstract class ActivityToolkit {
 	
 	public abstract Role createRole();
 	public abstract View createView();
+	
 }

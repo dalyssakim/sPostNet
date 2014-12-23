@@ -197,6 +197,7 @@ public class TransactionView implements View {
 				list.add(receiver);										//5 add(receiver)
 				list.add(weight);										//6 add(weight)
 				list.add(priority);										//7 add(priority)
+				list.add(employee.getId());								// add Id
 				
 				employee.getRole().doTask("ADDITEM", list);				//8 role:=getRole(), 9 doTask("ADDITEM", list)
 

@@ -30,8 +30,8 @@ public class AllocationView extends JFrame implements View, java.util.Observer {
 	private JPanel contentPane;
 	private Employee employee = null;
 
-	private List<Container> containers = new ArrayList();
-	private List<Employee> drivers = new ArrayList();
+	private List<Mail> containers = new ArrayList();
+	private List<Employee> drivers ;
 	private ArrayList availableDriver = new ArrayList();
 	private ArrayList classifiedContainer = new ArrayList();
 
@@ -52,15 +52,25 @@ public class AllocationView extends JFrame implements View, java.util.Observer {
 		/*
 		 * Set available drivers and classified container.
 		 */
-		drivers = sPostNet.getSPostNet().getActiveEmployee();
-
-		drivers = employee.getRole().getProxy()
-				.updateSelect("AvailableDriver", elist);
+		
+		elist.add(String.valueOf(employee.getCenterId()));
+		elist.add("Available");
+		
+//		drivers = sPostNet.getSPostNet().getActiveEmployee();
+		drivers = (List) Center.getCenter().getEmployees();
+//		drivers = employee.getRole().getProxy()
+//				.updateSelect("AvailableEmp", elist);
 
 		for (int i = 0; i < drivers.size(); i++) {
-			if (drivers.get(i).getRoleName().equals("Driver"))
-				; // [role == Driver && driver.state = waiting]
+			
+			System.out.println(drivers.get(i).getName()+":"+drivers.get(i).getRoleName());
+			Employee temp = drivers.get(i);
+			if(temp != null){
+			if (temp.getRoleName().equals("Driver"))
+			{// [role == Driver && driver.state = waiting]
 			driverListModel.addElement(drivers.get(i).getUserId());
+			}
+			}
 		}
 		list.setModel(driverListModel);
 
@@ -71,7 +81,7 @@ public class AllocationView extends JFrame implements View, java.util.Observer {
 		for (int i = 0; i < containers.size(); i++) { // 3.1.2
 														// [*i=0...mail.size]
 														// mail:=get(i)
-			System.out.println(containers.get(i).getCenter().getName());
+//			System.out.println(((Container)containers.get(i)).getCenter().getName());
 			//if (containers.get(i) != null && containers.get(i).getStatus().equalsIgnoreCase("idle")) {
 				containerListModel.addElement(containers.get(i)
 						.getInvoiceNumber()); // 3.1.3 [mail.status==Classified]
@@ -131,13 +141,15 @@ public class AllocationView extends JFrame implements View, java.util.Observer {
 								 * allocation onbutton with available drivers
 								 * and classified containers
 								 */
-
 								int invoiceNumber = -1;
 								String userId = "";
 								for (int i = 0; i < containers.size(); i++) {
 									if (list_1.getSelectedValue() != null) {
-										if ((Integer) list_1.getSelectedValue() != containers
+										System.out.println("Selected Value is not null"+i);
+										if ((Integer) list_1.getSelectedValue() == containers
 												.get(i).getInvoiceNumber()) {
+
+											System.out.println("Allocating..........Controller");
 											invoiceNumber = (Integer) list_1
 													.getSelectedValue();
 											userId = (String) list
@@ -185,50 +197,51 @@ public class AllocationView extends JFrame implements View, java.util.Observer {
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
-		System.out.println("Update View!!!!---allocation");
+//		System.out.println("Update View!!!!---allocation");
 
 		containerListModel.clear();
+		driverListModel.clear();
 		drivers.clear();
-
+		
 		containers = (List) Center.getCenter().getLcontainer();
-		drivers = sPostNet.getSPostNet().getActiveEmployee();
+//		drivers = sPostNet.getSPostNet().getActiveEmployee();
 		drivers = employee.getRole().getProxy()
-				.updateSelect("AvailableDriver", elist);
+				.updateSelect("AvailableEmp", elist);
 
 		/*
 		 * This should be Separate Method
 		 */
 
 		for (int i = 0; i < containers.size(); i++) {
-			System.out.println(containers.get(i).getInvoiceNumber()
-					+ "!!!!!!!!!!!status:" + containers.get(i).getStatus());
-			if (containers.get(i).getStatus().equals("Classified")
-					|| containers.get(i).getStatus().equals("idle")
-					|| containers.get(i).getStatus().equals("Idle")) {
+			System.out.println("What's Wrong?"+i);
+//			System.out.println(containers.get(i).getInvoiceNumber()
+//					+ "!!!!!!!!!!!status:" + containers.get(i).getStatus());
+			if (containers.get(i).getStatus().equals("Registered")) {
+				System.out.println("Here...");
 				containerListModel.addElement(containers.get(i)
 						.getInvoiceNumber());
-				System.out.println("register......."
-						+ containers.get(i).getInvoiceNumber());
+//				System.out.println("register......."
+//						+ containers.get(i).getInvoiceNumber());
 			} else if (containers.get(i).getStatus().equals("Allocated")) {
 				containerListModel.removeElement(containers.get(i)
 						.getInvoiceNumber());
 			}
 		}
 
-		System.out.println("USERID----" + drivers.get(0).getUserId());
 
+		list_1.setModel(containerListModel);
+		
 		for (int i = 0; i < drivers.size(); i++) {
-			System.out.println("USERID----" + drivers.get(i).getUserId());
+			if(drivers.get(i).getRoleName().equalsIgnoreCase("Driver")){
+		//	System.out.println("USERID----" + drivers.get(i).getUserId());
 			driverListModel.addElement(drivers.get(i).getUserId());
+			}
 		}
 
 		if (drivers.size() == 0) {
 			System.out.println("No Item in the list");
 		}
 
-		if (containers.size() == 0) {
-			System.out.println("No Item in the list");
-		}
 	}
 
 }

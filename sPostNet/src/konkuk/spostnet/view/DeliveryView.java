@@ -25,7 +25,7 @@ import konkuk.spostnet.core.Center;
 import konkuk.spostnet.model.Container;
 import konkuk.spostnet.model.Employee;
 
-public class DeliveryView extends JFrame implements View, java.util.Observer{
+public class DeliveryView extends JFrame implements View, java.util.Observer {
 
 	private JPanel contentPane;
 	private JFrame frame;
@@ -44,28 +44,39 @@ public class DeliveryView extends JFrame implements View, java.util.Observer{
 	}
 
 	public void showDeliveryView() {
-		
-		mails = (List) Center.getCenter().getLcontainer(); // 3.1.1 mails:=getLcontainer()
 
-		for (int i = 0; i < mails.size(); i++) { // 3.1.2 [*i=0...mail.size]mail:=get(i)
-			if (mails.get(i).getStatus().equals("Allocated")) { //3.1.3 [mail.status==WaitingDelivery]
+		mails = (List) Center.getCenter().getLcontainer(); // 3.1.1
+															// mails:=getLcontainer()
+
+		for (int i = 0; i < mails.size(); i++) { // 3.1.2
+													// [*i=0...mail.size]mail:=get(i)
+			if (mails.get(i).getStatus().equals("Allocated")) { // 3.1.3
+																// [mail.status==WaitingDelivery]
 				listModel.addElement(mails.get(i).getInvoiceNumber()); // addElement(mail.ContainerInvoiceNumber);
-				System.out.println("mail registers on jlist /"+mails.get(i).getInvoiceNumber());
-				System.out.println("dddd"+mails.get(i).getReceiver().getAddress());
-			try {
-				if (Center.getCenter().getCenterInfo().getStlocation() == mails.get(i).getReceiver().getAddress()) {
-					Container container = (Container) mails.get(i);
-					System.out.println("dddd"+container.getItems().size());
-					for(int j =0; j<container.getItems().size() ; j++){
-						System.out.println("mails in Container~~~~" + container.getItems().get(j).getInvoiceNumber());
-						listModel.addElement(container.getItems().get(j).getInvoiceNumber());
+				System.out.println("mail registers on jlist /"
+						+ mails.get(i).getInvoiceNumber());
+				System.out.println("dddd"
+						+ mails.get(i).getReceiver().getAddress());
+				try {
+					if (Center.getCenter().getCenterInfo().getCity() == mails
+							.get(i).getReceiver().getCity()) {
+						Container container = (Container) mails.get(i);
+						System.out
+								.println("dddd" + container.getItems().size());
+						for (int j = 0; j < container.getItems().size(); j++) {
+							System.out.println("mails in Container~~~~"
+									+ container.getItems().get(j)
+											.getInvoiceNumber());
+							listModel.addElement(container.getItems().get(j)
+									.getInvoiceNumber());
+						}
 					}
-				}}catch(Exception e){
-					
+				} catch (Exception e) {
+
 				}
 			}
 		}
-		
+
 		list.setModel(listModel);
 
 		if (item.size() == 0) {
@@ -111,55 +122,120 @@ public class DeliveryView extends JFrame implements View, java.util.Observer{
 
 		list.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(final ListSelectionEvent e) {
-				if(list.getSelectedValue() != null){
-				final int invoiceNumber = (Integer) list.getSelectedValue();
-				
+				if (list.getSelectedValue() != null) {
+					final int invoiceNumber = (Integer) list.getSelectedValue();
+
 					SwingUtilities.invokeLater(new Runnable() {
-					    public void run() {
-					    	for(int i=0 ; i<mails.size(); i++){			// Mail Specification
-					    		if(invoiceNumber == mails.get(i).getInvoiceNumber()){
-					    			textPane.setText("Invoice Number : " + mails.get(i).getInvoiceNumber() + 	
-					    					"\nDeparture : " + mails.get(i).getSender().getNation() + "\n	" +	
-					    					mails.get(i).getSender().getCity() + "\n	" +
-					    					mails.get(i).getSender().getAddress() +
-					    					"\nDestination : " + mails.get(i).getReceiver().getAddress()  +"\n	" +
-					    					mails.get(i).getReceiver().getCity() + "	\n	" +
-					    					mails.get(i).getReceiver().getAddress() + "\n	" );	}
-					    	
-					    		if (Center.getCenter().getCenterInfo().getStlocation() == mails.get(i).getReceiver().getAddress()) {
-									Container container = (Container) mails.get(i);
-									try{
-									for(int j =0; j<container.getItems().size() ; j++){
-										if(invoiceNumber == container.getItems().get(j).getInvoiceNumber()){
-							    			textPane.setText("[Container]"+mails.get(i).getInvoiceNumber() + 	
-							    					"\nInvoice Number : " + container.getItems().get(j).getInvoiceNumber()+
-							    					"\nDeparture : " + container.getItems().get(j).getSender().getNation() + "\n	" +	
-							    					container.getItems().get(j).getSender().getCity() + "\n	" +
-							    					container.getItems().get(j).getSender().getAddress() +
-							    					"\nDestination : " + container.getItems().get(j).getReceiver().getNation()  +"\n	" +
-							    					container.getItems().get(j).getReceiver().getCity() + "	\n	" +
-							    					container.getItems().get(j).getReceiver().getAddress() + "\n	" );	}
-									}} catch(Exception e){}
-					    		}}
-					    	
-					    	
-					    	
-					    	}});
-				
-					System.out.println("Before~~~~~~~~~~~~button!!");
-				btnDelivery.addActionListener(new ActionListener() { // Classify(invoiceNumber)
-					public void actionPerformed(ActionEvent ae) {
-						if (ae.getSource() instanceof JButton
-								&& e.getValueIsAdjusting()) {
-							System.out.println("Before~~~~~~~~~~~~Delivery Completed!!"+invoiceNumber);
-							List<Object> objects = new ArrayList(); // 1 create
-							objects.add(invoiceNumber); // 2 add(invoiceNumber)
-							employee.getRole().doTask("Completed", objects); // 3 role:=getRole(),
-																				// 4 doTask("Classify", objects)
-							System.out.println("Delivery Completed!!");
+						public void run() {
+							for (int i = 0; i < mails.size(); i++) { // Mail
+																		// Specification
+								if (invoiceNumber == mails.get(i)
+										.getInvoiceNumber()) {
+									textPane.setText("Invoice Number : "
+											+ mails.get(i).getInvoiceNumber()
+											+ "\nDeparture : "
+											+ mails.get(i).getSender()
+													.getNation()
+											+ "\n	"
+											+ mails.get(i).getSender()
+													.getCity()
+											+ "\n	"
+											+ mails.get(i).getSender()
+													.getAddress()
+											+ "\nDestination : "
+											+ mails.get(i).getReceiver()
+													.getAddress()
+											+ "\n	"
+											+ mails.get(i).getReceiver()
+													.getCity()
+											+ "	\n	"
+											+ mails.get(i).getReceiver()
+													.getAddress() + "\n	");
+								}
+
+								if (Center.getCenter().getCenterInfo()
+										.getCity() == mails.get(i)
+										.getReceiver().getCity()) {
+									Container container = (Container) mails
+											.get(i);
+									try {
+										for (int j = 0; j < container
+												.getItems().size(); j++) {
+											if (invoiceNumber == container
+													.getItems().get(j)
+													.getInvoiceNumber()) {
+												textPane.setText("[Container]"
+														+ mails.get(i)
+																.getInvoiceNumber()
+														+ "\nInvoice Number : "
+														+ container
+																.getItems()
+																.get(j)
+																.getInvoiceNumber()
+														+ "\nDeparture : "
+														+ container.getItems()
+																.get(j)
+																.getSender()
+																.getNation()
+														+ "\n	"
+														+ container.getItems()
+																.get(j)
+																.getSender()
+																.getCity()
+														+ "\n	"
+														+ container.getItems()
+																.get(j)
+																.getSender()
+																.getAddress()
+														+ "\nDestination : "
+														+ container.getItems()
+																.get(j)
+																.getReceiver()
+																.getNation()
+														+ "\n	"
+														+ container.getItems()
+																.get(j)
+																.getReceiver()
+																.getCity()
+														+ "	\n	"
+														+ container.getItems()
+																.get(j)
+																.getReceiver()
+																.getAddress()
+														+ "\n	");
+											}
+										}
+									} catch (Exception e) {
+									}
+								}
+							}
+
 						}
-					}
-				});
+					});
+
+					System.out.println("Before~~~~~~~~~~~~button!!");
+					btnDelivery.addActionListener(new ActionListener() { // Classify(invoiceNumber)
+								public void actionPerformed(ActionEvent ae) {
+									if (ae.getSource() instanceof JButton
+											&& e.getValueIsAdjusting()) {
+										System.out
+												.println("Before~~~~~~~~~~~~Delivery Completed!!"
+														+ invoiceNumber);
+										List<Object> objects = new ArrayList(); // 1
+																				// create
+										objects.add(invoiceNumber);
+										objects.add(employee);// 2
+																	// add(invoiceNumber)
+										employee.getRole().doTask("Completed",
+												objects); // 3 role:=getRole(),
+															// 4
+															// doTask("Classify",
+															// objects)
+										System.out
+												.println("Delivery Completed!!");
+									}
+								}
+							});
 				}
 			}
 		});
@@ -183,40 +259,42 @@ public class DeliveryView extends JFrame implements View, java.util.Observer{
 	public void update(Observable o, Object arg) {
 
 		// TODO Auto-generated method stub
-			
-				listModel.clear();
 
-				mails = (List) Center.getCenter().getLcontainer();
+		listModel.clear();
 
-				/*
-				 * This should be Separate Method
-				 */
+		mails = (List) Center.getCenter().getLcontainer();
 
-				for (int i = 0; i < mails.size(); i++) {
-					if (mails.get(i).getStatus().equals("Allocated")) {
-						listModel.addElement(mails.get(i).getInvoiceNumber());
-						System.out.println("["+mails.get(i).getInvoiceNumber()+"]"+mails.get(i).getStatus());
-						
-						try {
-							if (Center.getCenter().getCenterInfo().getStlocation() == mails.get(i).getReceiver().getAddress()) {
-								Container container = (Container) mails.get(i);
-								
-								for(int j =0; j<container.getItems().size() ; j++){
-									if(container.getItems().get(j).getStatus().equals("Allocated"))
-									listModel.addElement(container.getItems().get(j).getInvoiceNumber());
-								}
-							}}catch(Exception e){
-								
-							}
-						
-						
-						
+		/*
+		 * This should be Separate Method
+		 */
+
+		for (int i = 0; i < mails.size(); i++) {
+			if (mails.get(i).getStatus().equals("Allocated")) {
+				listModel.addElement(mails.get(i).getInvoiceNumber());
+				System.out.println("[" + mails.get(i).getInvoiceNumber() + "]"
+						+ mails.get(i).getStatus());
+
+				try {
+					if (Center.getCenter().getCenterInfo().getCity() == mails
+							.get(i).getReceiver().getAddress()) {
+						Container container = (Container) mails.get(i);
+
+						for (int j = 0; j < container.getItems().size(); j++) {
+							if (container.getItems().get(j).getStatus()
+									.equals("Allocated"))
+								listModel.addElement(container.getItems()
+										.get(j).getInvoiceNumber());
+						}
+					}
+				} catch (Exception e) {
+
 				}
-				}
-				if (item.size() == 0) {
-					System.out.println("No Item in the list");
-				}
-			
-		
+
+			}
+		}
+		if (item.size() == 0) {
+			System.out.println("No Item in the list");
+		}
+
 	}
 }

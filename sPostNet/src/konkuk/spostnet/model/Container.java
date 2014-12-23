@@ -11,8 +11,7 @@ public class Container extends Mail{
 	private CenterInfo center;
 	private List<Mail> items = null;
 
-	public Container(CenterInfo center){
-		this.setCenter(center);
+	public Container(){
 	}
 	
 	public List<Mail> getItems() {

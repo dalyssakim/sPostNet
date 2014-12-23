@@ -18,12 +18,12 @@ public class Transaction {
 		return null;
 	}
 	
-	public void addItem(Client sender, Client receiver, double weight, int priority,  int invoiceNumber){
+	public void addItem(Client sender, Client receiver, double weight, int priority,  int invoiceNumber, int empId){
 		try {
 			
 			mail = MailFactory.createMail("konkuk.spostnet.model.Item");
 			PaymentSpec paymentSpec = generatePaymentSpec(sender, receiver, priority, weight);
-			mail.specifyMail(sender, receiver, paymentSpec, invoiceNumber, "Registered", Center.getCenter().getCenterId());
+			mail.specifyMail(sender, receiver, paymentSpec, invoiceNumber, "Registered", Center.getCenter().getCenterId(), empId, "Item");
 			System.out.println("AddItem!!! : "+sender.getName());
 			
 		

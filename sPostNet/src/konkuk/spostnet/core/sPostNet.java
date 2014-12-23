@@ -23,9 +23,9 @@ public class sPostNet implements ServiceIF{
 	private sPostNet(){
 		employees = new ArrayList();
 		activeEmployee = new ArrayList();
-		employees.add(new Employee(0, "micro9110", "Dajung", "1234", 1, "Clerk"));
-		employees.add(new Employee(0, "ysi7764", "Suin", "1234", 1, "Clerk"));
-		employees.add(new Employee(0, "micro1007", "Kate", "1234", 1, "WarehouseManager"));
+		employees.add(new Employee(0, "micro9110", "Dajung", "1234", 1, "Clerk","Available"));
+		employees.add(new Employee(0, "ysi7764", "Suin", "1234", 1, "Clerk", "Available"));
+		employees.add(new Employee(0, "micro1007", "Kate", "1234", 1, "WarehouseManager", "Available"));
 
 		
 	}

@@ -12,9 +12,7 @@ import konkuk.spostnet.proxy.ServiceProxy;
 public class Clerk extends Role{
 
 	private Transaction transaction = null;
-	private Client sender, receiver;
-	double weight;
-	int priority;
+
 	
 	@Override
 	public void doTask(String command, List<Object> objects) {
@@ -27,13 +25,16 @@ public class Clerk extends Role{
 		 */
 		
 		if(command.equals("ADDITEM")){
+			Client sender, receiver;
+			double weight;
+			int priority;
 			if(transaction == null) transaction = new Transaction();
 			sender = (Client) objects.get(0);
 			receiver = (Client) objects.get(1);
 			weight = (Double) objects.get(2);
 			priority = (Integer) objects.get(3);
-			
-			transaction.addItem(sender, receiver, weight, priority, new InvoiceGenerator().generateInvoice());
+			int empId = (Integer) objects.get(4);
+			transaction.addItem(sender, receiver, weight, priority, new InvoiceGenerator().generateInvoice(), empId);
 			Center.getCenter().addItem(transaction.getMail());
 
 			Center.getCenter().setChanged();
@@ -60,11 +61,6 @@ public class Clerk extends Role{
 	}
 
 
-
-	
-	public int generateInvoiceNumber(){
-		return 0;
-	}
 
 	@Override
 	public ServiceIF getProxy() {

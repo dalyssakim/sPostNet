@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 
 import konkuk.spostnet.abstractobject.Mail;
 import konkuk.spostnet.core.Center;
@@ -33,6 +34,7 @@ public class ClassificationView implements View, java.util.Observer {
 	private DefaultListModel listModel = new DefaultListModel();
 	private JList list = new JList(listModel);
 	JPanel panel;
+	private View v = this;
 
 	/**
 	 * Launch the application.
@@ -49,13 +51,17 @@ public class ClassificationView implements View, java.util.Observer {
 	public void showClassificationView() {
 
 		mails = (List) Center.getCenter().getLmail();	// 3.1.1 mails := getLmail()
-		List elist = new ArrayList();
-		elist.add(employee);
-		mails = employee.getRole().getProxy().updateSelect("LoadMail", elist);
+//		List elist = new ArrayList();
+//		elist.add(employee);
+//		elist.add("Registered");
+//		elist.add("item");
+//		mails = employee.getRole().getProxy().updateSelect("LoadMail", elist);
+		if(mails != null){
 		for (int i = 0; i < mails.size(); i++) {		// 3.1.2 [*i=0...mail.size] mail:=get(i)
-			if (mails.get(i).getStatus().equals("Registered")) {
+			if (mails.get(i).getStatus().equals("Registered") && mails.get(i).getType().equalsIgnoreCase("Item")) {
 				listModel.addElement(mails.get(i).getInvoiceNumber());	// 3.1.3 [mail.status==Registered] addElement(mail.invoiceNumber);
 			}
+		}
 		}
 		list.setModel(listModel);
 		if (item.size() == 0) {
@@ -113,7 +119,7 @@ public class ClassificationView implements View, java.util.Observer {
 		});
 		
 		JButton btnCompleted = new JButton("Completed");
-		btnCompleted.setBounds(140, 210, 120, 23);
+		btnCompleted.setBounds(224, 210, 120, 23);
 		panel.add(btnCompleted);
 		btnCompleted.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -121,9 +127,16 @@ public class ClassificationView implements View, java.util.Observer {
 				 * Classification Completed 
 				 * Set Container Status to Ready or whatever
 				 */
+				done();
 				frame.dispose();
 			}
 		});
+
+	}
+	
+	public void done(){
+
+		Center.getCenter().deleteObserver(this);
 
 	}
 
@@ -131,6 +144,7 @@ public class ClassificationView implements View, java.util.Observer {
 	public void setModel(Object model) {
 		// TODO Auto-generated method stub
 		Center.getCenter().addObserver(this);	//  2.1 addObserver(View)
+
 		employee = (Employee) model;
 	}
 
@@ -149,21 +163,23 @@ public class ClassificationView implements View, java.util.Observer {
 
 		listModel.clear();
 
-		mails = (List) Center.getCenter().getLmail();
-
-		/*
-		 * This should be Separate Method
-		 */
-		
-		for (int i = 0; i < mails.size(); i++) {
-			if (mails.get(i).getStatus().equals("Registered")) {
-				listModel.addElement(mails.get(i).getInvoiceNumber());
+		mails = (List) Center.getCenter().getLmail();	// 3.1.1 mails := getLmail()
+//		List elist = new ArrayList();
+//		elist.add(employee);
+//		elist.add("Registered");
+//		elist.add("item");
+//		mails = employee.getRole().getProxy().updateSelect("LoadMail", elist);
+		for (int i = 0; i < mails.size(); i++) {		// 3.1.2 [*i=0...mail.size] mail:=get(i)
+			if (mails.get(i).getStatus().equals("Registered") && mails.get(i).getType().equalsIgnoreCase("Item")) {
+				System.out.println(mails.get(i).getInvoiceNumber());
+				listModel.addElement(mails.get(i).getInvoiceNumber());	// 3.1.3 [mail.status==Registered] addElement(mail.invoiceNumber);
 			}
 		}
-
+		list.setModel(listModel);
 		if (item.size() == 0) {
 			System.out.println("No Item in the list");
 		}
+
 	}
 
 }

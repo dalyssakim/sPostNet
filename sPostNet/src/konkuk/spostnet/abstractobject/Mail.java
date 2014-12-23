@@ -11,15 +11,37 @@ public abstract class Mail {
 	PaymentSpec paymentSpec;
 	String status;
 	int centerId;
+	int empId;
+	String type;
 	
-	public void specifyMail(Client sender, Client receiver, PaymentSpec paymentSpec, int invoiceNumber, String status, int centerId){
+	public void specifyMail(Client sender, Client receiver, PaymentSpec paymentSpec, int invoiceNumber, String status, int centerId, int empId, String type){
 		this.sender = sender;
 		this.receiver = receiver;
 		this.paymentSpec = paymentSpec;
 		this.invoiceNumber = invoiceNumber;
 		this.status = status;
 		this.centerId = centerId;
+		this.empId = empId;
+		this.type = type;
 	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public int getEmpId() {
+		return empId;
+	}
+
+
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
+
 
 	
 	public int getCenterId() {

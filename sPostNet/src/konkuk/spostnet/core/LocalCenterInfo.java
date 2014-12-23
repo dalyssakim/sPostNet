@@ -4,15 +4,9 @@ import java.util.List;
 
 public class LocalCenterInfo extends CenterInfo{
 
-	public LocalCenterInfo(String name, String nation, String city,
+	public LocalCenterInfo(String id, String name, String nation, String city,
 			String address, String phone) {
-		super(name, nation, city, address, phone);
-		// TODO Auto-generated constructor stub
-	}
-
-	public void setLocalCenterInfo(int id, String stlocation, int ilocationX,
-			int ilocationY) {
-		super.setCenterInfo(id, stlocation, ilocationX, ilocationY);
+		super(id, name, nation, city, address, phone);
 		// TODO Auto-generated constructor stub
 	}
 

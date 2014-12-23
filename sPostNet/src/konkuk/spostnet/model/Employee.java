@@ -19,13 +19,14 @@ public class Employee {
 		this.role = null;
 	}
 	
-	public Employee(int id, String userId, String name, String pwd, int centerId, String roleName){
+	public Employee(int id, String userId, String name, String pwd, int centerId, String roleName, String status){
 		this.id = id;
 		this.userId = userId;
 		this.name = name;
 		this.pwd = pwd;
 		this.centerId = centerId;
 		this.roleName = roleName;
+		this.status = status;
 	}
 	
 	
